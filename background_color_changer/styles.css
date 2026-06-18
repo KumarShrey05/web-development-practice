@@ -1,0 +1,22 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+body{
+    display:grid;
+    place-items: center;
+    height:100vh;
+    background-color: rgb(59, 199, 59);
+}
+.btn{
+    padding:20px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius:30px;
+    border-width: 5px;
+    font-size: large;
+    color:white;
+    background-color: transparent;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
