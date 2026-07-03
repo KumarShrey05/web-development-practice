@@ -1,0 +1,86 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(
+    circle at center,
+    #000000,
+    #000000f2,
+    #000000f5,
+    #000000
+  );
+  background-size: 600% 600%;
+  animation: move 30s ease-in-out infinite;
+}
+
+@keyframes move {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid rgba(255, 255, 0, 0.082);
+  border-radius: 10px;
+  box-shadow: 8px 8px 10px rgb(21, 238, 39);
+}
+.output {
+  background-color: rgba(128, 128, 128, 0.429);
+  border-radius: 5px;
+  display: flex;
+  height: 50px;
+  width: 270px;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  padding: 10px;
+  font-size: 26px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  font-family: cursive;
+}
+#valInput {
+  background: transparent;
+  color: white;
+  height: 30px;
+  padding: 0px 5px;
+  border-radius: 5px;
+  border: 3px solid grey;
+}
+#valInput::placeholder {
+  color: grey;
+}
+#valInput:focus {
+  outline: none;
+}
+button {
+  background-color: rgb(232, 52, 32);
+  color: white;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 20px;
+  margin-top: 5px;
+}
+button:hover {
+  cursor: pointer;
+  color: black;
+  background-color: rgba(232, 52, 32, 0.87);
+}
+h1 {
+  color: white;
+}
