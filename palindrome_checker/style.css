@@ -39,7 +39,7 @@ body {
   border-radius: 10px;
   box-shadow: 8px 8px 10px rgb(21, 238, 39);
 }
-.output {
+.display {
   background-color: rgba(128, 128, 128, 0.429);
   border-radius: 5px;
   display: flex;
