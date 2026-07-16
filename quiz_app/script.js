@@ -5,6 +5,9 @@ const optionTwo = document.getElementById("optionTwo");
 const optionThree = document.getElementById("optionThree");
 const optionFour = document.getElementById("optionFour");
 
+let questionCount=0;
+let score=0;
+
 const quizData = [
   {
     question: "What does HTML stand for?",
@@ -74,10 +77,41 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadQuestion() {
-  question.innerHTML = quizData[0].question;
-  optionOne.innerHTML = quizData[0].options[0];
-  optionTwo.innerHTML = quizData[0].options[1];
-  optionThree.innerHTML = quizData[0].options[2];
-  optionFour.innerHTML = quizData[0].options[3];
+  question.innerHTML = quizData[questionCount].question;
+  optionOne.innerHTML = quizData[questionCount].options[0];
+  optionTwo.innerHTML = quizData[questionCount].options[1];
+  optionThree.innerHTML = quizData[questionCount].options[2];
+  optionFour.innerHTML = quizData[questionCount].options[3];
 }
 
+function checkScore(selectedAnswer){
+  if(selectedAnswer === quizData[questionCount].answer){
+    score++;
+  }
+  questionCount++;
+
+  if(questionCount <quizData.length){
+    loadQuestion();
+  }
+  else{
+    question.innerHTML= `Quiz Completed!! <br><hr> Your score is ${score}/${quizData.length}`;
+
+    optionOne.style.display='none';
+    optionTwo.style.display='none';
+    optionThree.style.display='none';
+    optionFour.style.display='none';
+  }
+}
+
+optionOne.addEventListener('click', ()=>{
+  checkScore(optionOne.innerHTML)
+})
+optionTwo.addEventListener('click', ()=>{
+  checkScore(optionTwo.innerHTML)
+})
+optionThree.addEventListener('click', ()=>{
+  checkScore(optionThree.innerHTML)
+})
+optionFour.addEventListener('click', ()=>{
+  checkScore(optionFour.innerHTML)
+})
