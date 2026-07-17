@@ -77,11 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function loadQuestion() {
-  question.innerHTML = quizData[questionCount].question;
-  optionOne.innerHTML = quizData[questionCount].options[0];
-  optionTwo.innerHTML = quizData[questionCount].options[1];
-  optionThree.innerHTML = quizData[questionCount].options[2];
-  optionFour.innerHTML = quizData[questionCount].options[3];
+  question.textContent = quizData[questionCount].question;
+  optionOne.textContent = quizData[questionCount].options[0];
+  optionTwo.textContent = quizData[questionCount].options[1];
+  optionThree.textContent = quizData[questionCount].options[2];
+  optionFour.textContent = quizData[questionCount].options[3];
 }
 
 function checkScore(selectedAnswer){
@@ -104,14 +104,14 @@ function checkScore(selectedAnswer){
 }
 
 optionOne.addEventListener('click', ()=>{
-  checkScore(optionOne.innerHTML)
+  checkScore(optionOne.textContent)
 })
 optionTwo.addEventListener('click', ()=>{
-  checkScore(optionTwo.innerHTML)
+  checkScore(optionTwo.textContent)
 })
 optionThree.addEventListener('click', ()=>{
-  checkScore(optionThree.innerHTML)
+  checkScore(optionThree.textContent)
 })
 optionFour.addEventListener('click', ()=>{
-  checkScore(optionFour.innerHTML)
+  checkScore(optionFour.textContent)
 })
