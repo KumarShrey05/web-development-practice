@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Expense Tracker</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Expense Tracker</h1>
+        <div class="top-card">
+            <div class="left-card">
+                TOTAL INCOME
+                <span id="total-income">Rs 0</span>
+            </div>
+            <div class="middle-card"> TOTAL EXPENSE
+                <span id="total-expense">Rs 0</span>
+            </div>
+
+            <div class="right-card"> TOTAL BALANCE
+                <span id="total-balance">Rs 0</span>
+            </div>
+        </div>
+        <div class="add-entry-card">Add New Entry
+            <span>Select Type</span>
+            <button type="button" id="expense-btn">Expense</button>
+            <button type="button" id="income-btn">Income</button>
+            <form>
+                <label for="description">DESCRIPTION</label>
+                <input type="text" name="description" id="description" placeholder="What's this for">
+                <label for="amount">AMOUNT</label>
+                <input type="number" name="amount" id="amount" placeholder="Rs 00.00">
+                <label for="date">DATE</label>
+                <input type="date" name="date" id="date" placeholder="dd/mm/yyyy">
+            </form>
+            <button type="button" id="add-entry">Add Entry</button>
+        </div>
+        <div class="transaction-log">
+            <nav>
+                <ul>
+                    <li id="all-entries">All Entries</li>
+                    <li id="income-slider">Income</li>
+                    <li id="expense-slider">Expense</li>
+                </ul>
+            </nav>
+            <hr>
+            <div class="logs"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
