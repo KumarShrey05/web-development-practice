@@ -161,15 +161,18 @@ input::placeholder {
 
 nav ul {
   display: flex;
-  justify-content: space-between;
   list-style: none;
   background: #24143f;
   padding: 5px;
   border-radius: 10px;
 }
 
-nav button {
+nav li {
   flex: 1;
+}
+
+nav button {
+  width: 100%;
   border: none;
   background: transparent;
   color: #aaa;
@@ -187,7 +190,6 @@ nav button:hover {
 nav button:focus {
   background: linear-gradient(90deg, #c900ff, #ff00a8);
   color: white;
-  /* box-shadow: 0 0 15px rgba(217, 0, 255, 0.7); */
   outline: none;
 }
 
