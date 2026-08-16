@@ -10,12 +10,29 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>My Notes</h1>
-        <input type="text" id="note-content" placeholder="Create Note">
-        <button type="button" id="makes-note">+</button>
-        <div class="note-section"></div>
-    </div>
+
+    <main class="container">
+
+        <header>
+            <p class="tag">MY SPACE</p>
+            <h1>My Notes</h1>
+            <p class="subtitle">Capture your thoughts, ideas and reminders.</p>
+        </header>
+
+        <section class="note-input">
+
+            <textarea id="note-content" placeholder="Write something..."></textarea>
+
+            <div class="input-footer">
+                <span>New note</span>
+                <button id="add-note">+</button>
+            </div>
+
+        </section>
+
+        <section class="note-section"></section>
+
+    </main>
 
     <script src="script.js"></script>
 </body>
