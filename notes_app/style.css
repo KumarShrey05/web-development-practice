@@ -91,30 +91,30 @@ textarea::placeholder {
 }
 
 #add-note {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 
-    border: none;
-    border-radius: 12px;
+  border: none;
+  border-radius: 12px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    background: #7664dc;
-    color: white;
+  background: #7664dc;
+  color: white;
 
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 1;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
 
-    cursor: pointer;
-    transition: 0.2s;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 #add-note:hover {
-    background: #6652d0;
-    transform: translateY(-2px);
+  background: #6652d0;
+  transform: translateY(-2px);
 }
 
 /* Notes */
@@ -125,6 +125,99 @@ textarea::placeholder {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 18px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(40, 35, 60, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  height: 350px;
+  padding: 55px 25px 65px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 60px rgba(50, 40, 90, 0.2);
+  overflow: hidden;
+}
+
+.modal-content-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+}
+
+#modal-content {
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#close-modal {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(118, 100, 220, 0.1);
+  color: #7664dc;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#delete-note {
+  position: absolute;
+  bottom: 18px;
+  left: 25px;
+  right: 25px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: #7664dc;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.note {
+  height: 150px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(60, 50, 100, 0.08);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #242331;
+  overflow: hidden;
+  word-break: break-word;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.note:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(60, 50, 100, 0.12);
 }
 
 @media (max-width: 600px) {
