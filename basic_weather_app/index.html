@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <main class="container">
+        <h1>Weather App</h1>
+        <p>Check the weather anywhere, anytime.</p>
+
+        <form id="weatherForm">
+            <label for="userInput">Location</label>
+
+            <input type="text" id="userInput" placeholder="Enter the location..." autocomplete="off" required>
+
+            <button type="submit" id="searchBtn">
+                Search Now
+            </button>
+        </form>
+
+        <div id="weatherResult"></div>
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
