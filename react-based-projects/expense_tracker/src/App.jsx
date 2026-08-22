@@ -1,122 +1,129 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [expenses, setExpenses] = useState([]);
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [editingExpenseId, setEditingExpenseId] = useState(null);
+
+  const addExpense = () => {
+    if (title.trim() === "") return;
+    if (amount === "") return;
+
+    const newExpense = {
+      id: Date.now(),
+      Title: title,
+      Amount: Number(amount),
+    };
+
+    setExpenses([...expenses, newExpense]);
+    setTitle("");
+    setAmount("");
+  };
+
+  const deleteExpense = (id) => {
+    const updatedExpenses = expenses.filter(
+      (expense) => expense.id !== id
+    );
+
+    setExpenses(updatedExpenses);
+  };
+
+  const updateExpense = () => {
+    const updatedExpenses = expenses.map((expense) =>
+      expense.id === editingExpenseId
+        ? {
+          ...expense,
+          Title: title,
+          Amount: Number(amount),
+        }
+        : expense
+    );
+
+    setExpenses(updatedExpenses);
+    setEditingExpenseId(null);
+    setTitle("");
+    setAmount("");
+  };
+
+  const cancelEdit = () => {
+    setEditingExpenseId(null);
+    setTitle("");
+    setAmount("");
+  };
+
+  const total = expenses.reduce(
+    (sum, expense) => sum + Number(expense.Amount),
+    0
+  );
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+    <div>
+      <h1>Expense Tracker</h1>
+
+      <input
+        type="text"
+        value={title}
+        placeholder="Expense Name"
+        onChange={(e) => {
+          setTitle(e.target.value);
+        }}
+      />
+
+      <input
+        type="number"
+        value={amount}
+        placeholder="Amount"
+        onChange={(e) => {
+          setAmount(e.target.value);
+        }}
+      />
+
+      {editingExpenseId === null ? (
+        <button type="button" onClick={addExpense}>
+          Add Expense
         </button>
-      </section>
+      ) : (
+        <>
+          <button type="button" onClick={updateExpense}>
+            Update Expense
+          </button>
 
-      <div className="ticks"></div>
+          <button type="button" onClick={cancelEdit}>
+            Cancel
+          </button>
+        </>
+      )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      {expenses.map((expense) => (
+        <div key={expense.id}>
+          <span>{expense.Title}</span>
+          <span>₹{expense.Amount}</span>
+
+          <button
+            type="button"
+            onClick={() => {
+              setEditingExpenseId(expense.id);
+              setTitle(expense.Title);
+              setAmount(expense.Amount);
+            }}
+          >
+            Edit
+          </button>
+
+          <button
+            type="button"
+            onClick={() => deleteExpense(expense.id)}
+          >
+            Delete
+          </button>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      ))}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <h2>Total Expense: ₹{total}</h2>
+    </div>
+  );
 }
 
-export default App
+export default App;
