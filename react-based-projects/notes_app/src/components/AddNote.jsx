@@ -1,18 +1,16 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { NotesContext } from "../context/NotesContext";
 
-function AddNote({ setNotes }) {
-    
+function AddNote() {
+
+    const { addNote } = useContext(NotesContext);
+
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    const addNote = () => {
-        const newNote = {
-            id: Date.now(),
-            title: title,
-            content: content
-        };
+    const handleAddNote = () => {
 
-        setNotes((prevNotes) => [...prevNotes, newNote]);
+        addNote(title, content);
 
         setTitle("");
         setContent("");
@@ -33,7 +31,7 @@ function AddNote({ setNotes }) {
                 onChange={(e) => { setContent(e.target.value) }}
             />
 
-            <button type="button" onClick={addNote}>Add Note</button>
+            <button type="button" onClick={handleAddNote}>Add Note</button>
         </div>
     );
 }
