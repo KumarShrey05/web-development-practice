@@ -1,0 +1,55 @@
+body{
+    background-color: rgb(150, 150, 213);
+    display: flex; /*align-items works when display is flex.*/
+    justify-content: center; /* horizontal center (movement in x-axis)*/
+    align-items: center;     /* vertical center (movement in y-axis)*/
+    min-height: 90vh;       /* full screen height */   
+}
+.counter-container{
+    background-color: aliceblue;
+    width:300px;
+    margin:10px;
+    padding:10px;
+    text-align:center;
+    border-radius:10px;
+    font-family:Arial, Helvetica, sans-serif
+}
+h1{
+    background-color: aliceblue;
+}
+.counter-display{
+    font-size: 10vh;
+    background-color: rgb(36, 221, 221);
+    padding:1px 50px;
+    margin:10px;
+    border-radius:10px;
+}
+.increment,.decrement{
+    display:inline-block;
+    
+}
+#increment{
+    background-color: rgb(187, 208, 52);
+    font-size:20px;
+    margin:5px;
+    border-radius:5px;
+    padding:10px;
+    border-color: aliceblue;
+}
+#decrement{
+    background-color: rgb(100, 47, 192);
+    font-size:20px;
+    color:white;
+    border-radius:5px;
+    padding:10px;
+    border-color:aliceblue;
+}
+#reset{
+    background-color: rgb(204, 56, 56);
+    font-size:20px;
+    margin:10px;
+    color: white;
+    border-radius:5px;
+    padding:10px 20px;
+    border-color:aliceblue;
+}
