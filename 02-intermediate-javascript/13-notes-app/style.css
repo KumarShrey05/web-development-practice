@@ -1,0 +1,235 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 55px 20px;
+  font-family: Arial, sans-serif;
+  color: #242331;
+
+  background:
+    radial-gradient(circle at 10% 10%, #e5e1ff, transparent 30%),
+    radial-gradient(circle at 90% 90%, #fce4f1, transparent 30%), #f8f8fc;
+}
+
+.container {
+  max-width: 760px;
+  margin: auto;
+}
+
+/* Header */
+
+header {
+  margin-bottom: 30px;
+}
+
+.tag {
+  color: #7664dc;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #858391;
+  font-size: 15px;
+}
+
+/* Note input */
+
+.note-input {
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px);
+
+  box-shadow: 0 18px 45px rgba(60, 50, 100, 0.12);
+}
+
+textarea {
+  width: 100%;
+  height: 170px;
+  padding: 20px;
+
+  border: 0;
+  outline: 0;
+  resize: none;
+  border-radius: 17px;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  font: inherit;
+  font-size: 16px;
+  color: #242331;
+}
+
+textarea::placeholder {
+  color: #aaa8b5;
+}
+
+.input-footer {
+  height: 52px;
+  padding: 0 12px 0 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #aaa8b5;
+  font-size: 13px;
+}
+
+#add-note {
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #7664dc;
+  color: white;
+
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#add-note:hover {
+  background: #6652d0;
+  transform: translateY(-2px);
+}
+
+/* Notes */
+
+.note-section {
+  margin-top: 40px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(40, 35, 60, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  height: 350px;
+  padding: 55px 25px 65px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 60px rgba(50, 40, 90, 0.2);
+  overflow: hidden;
+}
+
+.modal-content-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+}
+
+#modal-content {
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#close-modal {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(118, 100, 220, 0.1);
+  color: #7664dc;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#delete-note {
+  position: absolute;
+  bottom: 18px;
+  left: 25px;
+  right: 25px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: #7664dc;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.note {
+  height: 150px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(60, 50, 100, 0.08);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #242331;
+  overflow: hidden;
+  word-break: break-word;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.note:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(60, 50, 100, 0.12);
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 35px 15px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .note-section {
+    grid-template-columns: 1fr;
+  }
+}
