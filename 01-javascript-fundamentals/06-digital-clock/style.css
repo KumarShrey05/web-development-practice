@@ -1,0 +1,35 @@
+body{
+    margin:0px;
+    padding:0px;
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    background-color:chocolate
+}
+.container{
+    border:2px solid black;
+    margin:0px;
+    padding:10px;
+    text-align: center;
+    background-color: chartreuse;
+    box-shadow:15px 15px rgb(0,0,0,0.9);
+}
+.display{
+    padding:10px;
+    margin:20px;
+    background-color:gainsboro;
+    font-size:100px;
+    width:350px;
+}
+h1{
+    font-size:50px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+button{
+    font-size:20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
