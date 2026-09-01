@@ -1,41 +1,92 @@
 import { useContext, useState } from "react";
 import DashboardContext from "../context/DashboardContext";
 
-function Form({ category, editData = null }) {
-    
-    const { setUsers, setProducts, setOrders } = useContext(DashboardContext);
+function Form({ category, editData = null, onClose }) {
+    const {
+        setUsers,
+        setProducts,
+        setOrders
+    } = useContext(DashboardContext);
 
     const [formData, setFormData] = useState(editData || {});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [name]: value,
-        });
+        }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (category === "user") {
-            setUsers((prev) => [...prev, formData]);
+            if (editData) {
+                setUsers((prev) =>
+                    prev.map((user) =>
+                        user.id === editData.id
+                            ? { ...user, ...formData }
+                            : user
+                    )
+                );
+            } else {
+                setUsers((prev) => [
+                    ...prev,
+                    {
+                        ...formData,
+                        id: Date.now(),
+                    },
+                ]);
+            }
         }
 
         if (category === "product") {
-            setProducts((prev) => [...prev, formData]);
+            if (editData) {
+                setProducts((prev) =>
+                    prev.map((product) =>
+                        product.id === editData.id
+                            ? { ...product, ...formData }
+                            : product
+                    )
+                );
+            } else {
+                setProducts((prev) => [
+                    ...prev,
+                    {
+                        ...formData,
+                        id: Date.now(),
+                    },
+                ]);
+            }
         }
 
         if (category === "order") {
-            setOrders((prev) => [...prev, formData]);
+            if (editData) {
+                setOrders((prev) =>
+                    prev.map((order) =>
+                        order.id === editData.id
+                            ? { ...order, ...formData }
+                            : order
+                    )
+                );
+            } else {
+                setOrders((prev) => [
+                    ...prev,
+                    {
+                        ...formData,
+                        id: Date.now(),
+                    },
+                ]);
+            }
         }
 
-        setFormData({});
+        onClose();
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="adminForm" onSubmit={handleSubmit}>
 
             {category === "user" && (
                 <>
@@ -45,6 +96,7 @@ function Form({ category, editData = null }) {
                         placeholder="First Name"
                         value={formData.firstName || ""}
                         onChange={handleChange}
+                        required
                     />
 
                     <input
@@ -53,6 +105,7 @@ function Form({ category, editData = null }) {
                         placeholder="Last Name"
                         value={formData.lastName || ""}
                         onChange={handleChange}
+                        required
                     />
 
                     <input
@@ -61,6 +114,7 @@ function Form({ category, editData = null }) {
                         placeholder="Email"
                         value={formData.email || ""}
                         onChange={handleChange}
+                        required
                     />
                 </>
             )}
@@ -73,6 +127,7 @@ function Form({ category, editData = null }) {
                         placeholder="Product Name"
                         value={formData.title || ""}
                         onChange={handleChange}
+                        required
                     />
 
                     <input
@@ -81,6 +136,7 @@ function Form({ category, editData = null }) {
                         placeholder="Price"
                         value={formData.price || ""}
                         onChange={handleChange}
+                        required
                     />
 
                     <input
@@ -89,6 +145,7 @@ function Form({ category, editData = null }) {
                         placeholder="Category"
                         value={formData.category || ""}
                         onChange={handleChange}
+                        required
                     />
                 </>
             )}
@@ -101,6 +158,7 @@ function Form({ category, editData = null }) {
                         placeholder="User ID"
                         value={formData.userId || ""}
                         onChange={handleChange}
+                        required
                     />
 
                     <input
@@ -109,13 +167,28 @@ function Form({ category, editData = null }) {
                         placeholder="Total"
                         value={formData.total || ""}
                         onChange={handleChange}
+                        required
                     />
                 </>
             )}
 
-            <button type="submit">
-                {editData ? "Update" : "Add"}
-            </button>
+            <div className="formActions">
+                <button
+                    type="button"
+                    className="cancelButton"
+                    onClick={onClose}
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    className="addButton"
+                >
+                    {editData ? "Update" : "Add"}
+                </button>
+            </div>
+
 
         </form>
     );

@@ -5,20 +5,22 @@ import Users from './pages/Users'
 import Products from './pages/Products'
 import Orders from './pages/Orders'
 import Form from './components/Form'
-import Navbar from './pages/Navbar'
+import Sidebar from './pages/Sidebar'
 
 function App() {
-
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Dashboard />}></Route>
-        <Route path='/users' element={<Users />}></Route>
-        <Route path='/products' element={<Products />}></Route>
-        <Route path='/orders' element={<Orders />}></Route>
-        <Route path='/form' element={<Form />}></Route>
-      </Routes>
+      <div className="layout">
+        <Sidebar />
+
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/form" element={<Form />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   )
 }

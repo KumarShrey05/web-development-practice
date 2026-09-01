@@ -2,22 +2,30 @@ function RecentUsers({ users }) {
     const recentUsers = users.slice(0, 5);
 
     return (
-        <div>
-            <h2>Recent Users</h2>
+        <div className="recentSection">
+            <div className="recentHeader">
+                <h2>Recent Users</h2>
+            </div>
 
-            {recentUsers.map((user) => (
-                <div key={user.id}>
-                    <img
-                        src={user.image}
-                        alt={user.firstName}
-                        width="40"
-                    />
+            <div className="recentList">
+                {recentUsers.map((user) => (
+                    <div className="recentItem" key={user.id}>
+                        <img
+                            className="userImage"
+                            src={user.image}
+                            alt={`${user.firstName} ${user.lastName}`}
+                        />
 
-                    <span>
-                        {user.firstName} {user.lastName}
-                    </span>
-                </div>
-            ))}
+                        <div>
+                            <p className="primaryText">
+                                {user.firstName} {user.lastName}
+                            </p>
+
+                            <span>{user.email}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
