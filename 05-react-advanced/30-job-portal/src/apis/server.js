@@ -9,7 +9,7 @@ export async function getJobData() {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.log("Error fetching jobs:", error)
-    return[]
+    console.log("Error fetching jobs:", error);
+    return [];
   }
-};
+}

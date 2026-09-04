@@ -1,15 +1,18 @@
 import { useContext } from "react"
 import { JobsDataContext } from "../context/JobsDataContext"
 import JobCard from "../components/JobCard"
+import SearchJobs from "../components/SearchJobs"
 
 function JobGrid() {
 
-    const {jobData} = useContext(JobsDataContext)
+  const { filteredJobs } = useContext(JobsDataContext)
   return (
     <div>
-        {jobData.map((jobs)=> (
-            <JobCard key={jobs.id} jobs={jobs}/>
-        ))}
+      <SearchJobs />
+
+      {filteredJobs.map((jobs) => (
+        <JobCard key={jobs.id} jobs={jobs} />
+      ))}
     </div>
   )
 }

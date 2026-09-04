@@ -4,7 +4,13 @@ import { JobsDataContext } from "../context/JobsDataContext"
 
 function JobDetails() {
 
-    const { getJobById } = useContext(JobsDataContext)
+    const {
+        getJobById,
+        savedJobs,
+        setSavedJobs,
+        appliedJobs,
+        setAppliedJobs
+    } = useContext(JobsDataContext)
 
     const { id } = useParams();
     const job = getJobById(id);
@@ -13,9 +19,48 @@ function JobDetails() {
         return <h2>Loading...</h2>;
     }
 
+    const isSaved = savedJobs.some((savedJob) => savedJob.id === job.id);
+
+    const isApplied = appliedJobs.some((appliedJob) => appliedJob.id === job.id);
+
+
+    const handleSave = () => {
+        if (isSaved) {
+            setSavedJobs(
+                savedJobs.filter(
+                    (savedJob) => savedJob.id !== job.id
+                )
+            );
+        } else {
+            setSavedJobs([...savedJobs, job]);
+        }
+    };
+
+    const handleApply = () => {
+        if (!isApplied) {
+            setAppliedJobs([...appliedJobs, job]);
+        }
+    };
+
+
+
+
     return (
         <div>
             <p>{job?.category.name}</p>
+            <div>
+                <button onClick={handleSave}>
+                    {isSaved ? "Saved" : "Save"}
+                </button>
+
+                <a
+                    href={job?.apply_url}
+                    onClick={handleApply}
+                >
+                    {isApplied ? "Applied" : "Apply"}
+                </a>
+
+            </div>
             <h1>{job?.title}</h1>
             <img
                 src={job?.company.logo_url}

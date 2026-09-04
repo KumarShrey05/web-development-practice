@@ -3,20 +3,20 @@ import Navbar from "./components/Navbar";
 import JobGrid from "./pages/JobGrid";
 import JobDetails from "./pages/JobDetails";
 import SavedJobs from "./pages/SavedJobs";
-import ApplyForm from "./pages/ApplyForm";
+import AppliedJobs from "./pages/AppliedJobs";
 
 
 function App() {
 
   return (<div>
     <BrowserRouter>
-    <Navbar/>
-    <Routes>
-      <Route path= "/" element={<JobGrid/>} />
-      <Route path= "/jobs/:title/:id" element={<JobDetails/>} />
-      <Route path= "/saved-jobs" element={<SavedJobs/>} />
-      <Route path= "/jobs/:title/:id/apply" element={<ApplyForm/>} />
-    </Routes>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<JobGrid />} />
+        <Route path="/jobs/:title/:id" element={<JobDetails />} />
+        <Route path="/saved-jobs" element={<SavedJobs />} />
+        <Route path="/applied-jobs" element={<AppliedJobs />} />
+      </Routes>
     </BrowserRouter>
   </div>)
 

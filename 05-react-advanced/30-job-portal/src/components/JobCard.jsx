@@ -8,7 +8,7 @@ function JobCard({ jobs }) {
             <Link to={`/jobs/${jobs.title}/${jobs.id}`}>
                 <h1>{jobs.title}</h1>
             </Link>
-            
+
             <div>
                 <img
                     src={jobs.company.logo_url}
