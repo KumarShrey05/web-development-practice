@@ -1,0 +1,60 @@
+// const response = await fetch('https://dummyjson.com/posts')
+// const data =  await response.json();
+
+// ------------GET REQUEST---------------
+app.get("/api/notes", (req, res) => {
+  res.json(notes);
+});
+
+// ------------POST REQUEST---------------
+app.post("/api/notes", (req, res) => {
+  const newNote = {
+    id: notes.length + 1,
+    title: req.body.title,
+    content: req.body.content,
+  };
+  notes.push(newNote);
+  res.status(201).json(newNote);
+  console.log(req.body);
+});
+
+// ------------PUT REQUEST---------------
+app.put("/api/notes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const note = notes.find((note) => note.id === id);
+
+  if (!note) {
+    return res.status(404).json({ message: "Note not found" });
+  }
+
+  note.title = req.body.title;
+  note.content = req.body.content;
+  res.json(note);
+});
+
+// ------------DELETE REQUEST---------------
+app.delete("/api/notes/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const noteIndex = notes.findIndex((note) => note.id === id);
+
+  if (noteIndex === -1) {
+    return res.status(404).json({ message: "Note not found" });
+  }
+
+  notes.splice(noteIndex, 1);
+  res.status(200).json({ message: "Note deleted successfully" });
+});
+
+
+const notes = [
+  {
+    id: 1,
+    title: "Learn Node.js",
+    content: "Understand how Node.js works",
+  },
+  {
+    id: 2,
+    title: "Learn Express",
+    content: "Build REST APIs with Express",
+  },
+];
