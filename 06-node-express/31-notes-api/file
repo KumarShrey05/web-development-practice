@@ -58,3 +58,25 @@ const notes = [
     content: "Build REST APIs with Express",
   },
 ];
+
+// for SQL ----------------
+
+create database notes_db;
+
+CREATE TABLE notes (
+id INT PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(255) NOT NULL,
+content TEXT NOT NULL
+);
+
+INSERT INTO notes (title, content)
+VALUES('Learn Express', 'Build REST APIs with Express');
+SELECT * FROM notes;
+
+UPDATE notes
+SET TITLE = 'Learn Express.js',
+content = 'Build APIs using Express.js'
+where id = 2;
+
+DELETE FROM notes
+WHERE id = 2;
