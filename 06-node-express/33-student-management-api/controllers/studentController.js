@@ -36,5 +36,3 @@ export const getStudentsById = async (req, res) => {
     });
   }
 };
-
-export const 
