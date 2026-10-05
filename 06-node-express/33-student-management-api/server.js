@@ -1,4 +1,3 @@
-import { getStudents, getStudentsById } from "./controllers/studentController.js";
 import studentRoutes from "./routes/studentRoutes.js"
 
 import express from "express";
