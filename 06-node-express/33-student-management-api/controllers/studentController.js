@@ -184,7 +184,7 @@ export const updateStudent = async (req, res) => {
         message: "Failed to update student",
       });
     }
-  });
+  }); 
 };
 
 export const deleteStudent = async (req, res) => {
