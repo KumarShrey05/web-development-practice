@@ -31,6 +31,7 @@ export const getStudents = async (req, res) => {
 
     res.status(200).json(rows);
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       message: "Failed to fetch students",
     });
@@ -51,6 +52,7 @@ export const getStudentsById = async (req, res) => {
     }
     res.status(200).json(rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       message: "Failed to fetch",
     });
@@ -82,6 +84,7 @@ export const createStudent = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       message: "Failed to Add into the database",
     });
@@ -176,6 +179,7 @@ export const updateStudent = async (req, res) => {
         student: updatedStudent[0],
       });
     } catch (error) {
+      console.error(error);
       res.status(500).json({
         message: "Failed to update student",
       });
@@ -199,6 +203,7 @@ export const deleteStudent = async (req, res) => {
       message: "Student Data Deleted Successfully",
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       message: "Failed to Delete Student Data",
     });
