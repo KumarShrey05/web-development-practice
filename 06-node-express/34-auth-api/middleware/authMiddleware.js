@@ -10,9 +10,21 @@ const protectRoute = (req, res, next) => {
       });
     }
 
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.slice(7).trim();
+
+    if (!token) {
+      return res.status(401).json({
+        message: "Unauthorized - No token provided",
+      });
+    }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!Number.isInteger(decoded.id)) {
+      return res.status(401).json({
+        message: "Unauthorized - Invalid token",
+      });
+    }
 
     req.user = decoded;
 

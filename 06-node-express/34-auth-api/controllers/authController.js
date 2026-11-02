@@ -4,13 +4,23 @@ import jwt from "jsonwebtoken";
 
 const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    let { name, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (
+      typeof name !== "string" ||
+      typeof email !== "string" ||
+      typeof password !== "string" ||
+      !name.trim() ||
+      !email.trim() ||
+      !password
+    ) {
       return res.status(400).json({
         message: "All fields are required",
       });
     }
+
+    name = name.trim();
+    email = email.trim().toLowerCase();
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({
@@ -21,6 +31,12 @@ const register = async (req, res) => {
     if (password.length < 8) {
       return res.status(400).json({
         message: "Password must be at least 8 characters long",
+      });
+    }
+
+    if (Buffer.byteLength(password, "utf8") > 72) {
+      return res.status(400).json({
+        message: "Password is too long",
       });
     }
 
@@ -38,11 +54,12 @@ const register = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const [result] = await pool.query(
-      "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
+      `INSERT INTO users (name, email, password_hash)
+             VALUES (?, ?, ?)`,
       [name, email, passwordHash],
     );
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "User registered successfully",
       user: {
         id: result.insertId,
@@ -53,7 +70,13 @@ const register = async (req, res) => {
   } catch (error) {
     console.error("Register error:", error);
 
-    res.status(500).json({
+    if (error.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({
+        message: "Email already registered",
+      });
+    }
+
+    return res.status(500).json({
       message: "Internal server error",
     });
   }
@@ -61,17 +84,27 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
 
-    if (!email || !password) {
+    if (
+      typeof email !== "string" ||
+      typeof password !== "string" ||
+      !email.trim() ||
+      !password
+    ) {
       return res.status(400).json({
         message: "Email and password are required",
       });
     }
 
-    const [users] = await pool.query("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
+    email = email.trim().toLowerCase();
+
+    const [users] = await pool.query(
+      `SELECT id, name, email, password_hash
+             FROM users
+             WHERE email = ?`,
+      [email],
+    );
 
     if (users.length === 0) {
       return res.status(401).json({
@@ -93,7 +126,7 @@ const login = async (req, res) => {
       expiresIn: "1d",
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Login successful",
       token,
       user: {
@@ -105,7 +138,7 @@ const login = async (req, res) => {
   } catch (error) {
     console.error("Login error:", error);
 
-    res.status(500).json({
+    return res.status(500).json({
       message: "Internal server error",
     });
   }
