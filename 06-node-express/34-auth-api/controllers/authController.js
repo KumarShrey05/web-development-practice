@@ -6,6 +6,7 @@ const register = async (req, res) => {
   try {
     let { name, email, password } = req.body;
 
+    // Validates required fields.
     if (
       typeof name !== "string" ||
       typeof email !== "string" ||
@@ -19,27 +20,32 @@ const register = async (req, res) => {
       });
     }
 
+    // Trims name and converts email to lowercase.
     name = name.trim();
     email = email.trim().toLowerCase();
 
+    // Checks whether the email format is valid.
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({
         message: "Invalid email format",
       });
     }
 
+    // Checks minimum password length.
     if (password.length < 8) {
       return res.status(400).json({
         message: "Password must be at least 8 characters long",
       });
     }
 
+    // Ensures password does not exceed bcrypt's 72-byte limit.
     if (Buffer.byteLength(password, "utf8") > 72) {
       return res.status(400).json({
         message: "Password is too long",
       });
     }
 
+    // Checks if the email is already registered.
     const [existingUser] = await pool.query(
       "SELECT id FROM users WHERE email = ?",
       [email],
@@ -51,8 +57,10 @@ const register = async (req, res) => {
       });
     }
 
+    // Hashes the password before storing it.
     const passwordHash = await bcrypt.hash(password, 10);
 
+    // Inserts the new user into the database.
     const [result] = await pool.query(
       `INSERT INTO users (name, email, password_hash)
              VALUES (?, ?, ?)`,
@@ -70,6 +78,7 @@ const register = async (req, res) => {
   } catch (error) {
     console.error("Register error:", error);
 
+    // Handles duplicate email errors.
     if (error.code === "ER_DUP_ENTRY") {
       return res.status(409).json({
         message: "Email already registered",
@@ -86,6 +95,7 @@ const login = async (req, res) => {
   try {
     let { email, password } = req.body;
 
+    // Validates login credentials.
     if (
       typeof email !== "string" ||
       typeof password !== "string" ||
@@ -99,6 +109,7 @@ const login = async (req, res) => {
 
     email = email.trim().toLowerCase();
 
+    // Fetches the user using their email.
     const [users] = await pool.query(
       `SELECT id, name, email, password_hash
              FROM users
@@ -114,6 +125,7 @@ const login = async (req, res) => {
 
     const user = users[0];
 
+    // Compares the entered password with the stored hash.
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
 
     if (!isPasswordValid) {
@@ -122,6 +134,7 @@ const login = async (req, res) => {
       });
     }
 
+    // Generates a JWT token valid for one day.
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
@@ -146,6 +159,7 @@ const login = async (req, res) => {
 
 const getProfile = async (req, res) => {
   try {
+    // Fetches profile details using the authenticated user's ID.
     const [users] = await pool.query(
       "SELECT id, name, email FROM users WHERE id = ?",
       [req.user.id],
@@ -170,4 +184,5 @@ const getProfile = async (req, res) => {
   }
 };
 
+// Exports authentication and profile controllers.
 export { register, login, getProfile };

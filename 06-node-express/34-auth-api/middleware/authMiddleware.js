@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 const protectRoute = (req, res, next) => {
   try {
+    // Gets the authorization header from the request.
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -10,6 +11,7 @@ const protectRoute = (req, res, next) => {
       });
     }
 
+    // Extracts the JWT token from the Bearer header.
     const token = authHeader.slice(7).trim();
 
     if (!token) {
@@ -18,14 +20,17 @@ const protectRoute = (req, res, next) => {
       });
     }
 
+    // Verifies the token using the JWT secret.
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Checks whether the token contains a valid user ID.
     if (!Number.isInteger(decoded.id)) {
       return res.status(401).json({
         message: "Unauthorized - Invalid token",
       });
     }
 
+    // Stores authenticated user data for the next middleware.
     req.user = decoded;
 
     next();
@@ -36,4 +41,5 @@ const protectRoute = (req, res, next) => {
   }
 };
 
+// Exports the authentication middleware.
 export { protectRoute };
